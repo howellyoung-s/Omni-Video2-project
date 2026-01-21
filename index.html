@@ -908,10 +908,10 @@
       <div class="intro-text">
         <p>We present a unified video editing and generation framework that pairs a text-to-video DiT backbone with vision-language understanding for precise, controllable edits. A VLM reads the source video and edit instruction to predict a detailed caption of the expected edited result, converting sparse prompts into explicit semantics about content, attributes, and temporal changes. The DiT model then uses mixed cross-attention conditioning, injecting source VAE latents (optionally concatenated with other cues) together with the expanded text semantics, to preserve identity, layout, and motion while enabling flexible control. This yields a single pipeline that supports text-to-video, video-to-video editing, and mixed-condition generation.</p>
         
-        <ul class="intro-highlights">
+        <!-- <ul class="intro-highlights">
           <li><strong>Target-caption prediction (VLM):</strong> dense "after-edit" semantics from video + edit prompt.</li>
           <li><strong>Mixed cross-attention conditioning:</strong> fuse VAE latent anchors and multimodal cues with text for faithful, controllable results.</li>
-        </ul>
+        </ul> -->
       </div>
       
       <figure class="framework-image">
