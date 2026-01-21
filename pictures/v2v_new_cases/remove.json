@@ -1,0 +1,42 @@
+[
+    {
+        "id": 0,
+        "prompt": "Remove the meditation cushion from the scene.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3833_Remove_the_meditation_cushion_from_the_scene._20260119_214817_couple.mp4"
+    },
+    {
+        "id": 1,
+        "prompt": "Remove the two cubs from the scene.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3530_Remove_the_two_cubs_from_the_scene._20260119_204859_couple.mp4"
+    },
+    {
+        "id": 2,
+        "prompt": "Remove the two lizards from the scene, but keep the runner and the desert dune under a blazing noon sun.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed12818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id5323_Remove_the_two_lizards_from_the_scene__but_keep_the_runner_and_the_des_20260120_024433_couple.mp4"
+    },
+    {
+        "id": 3,
+        "prompt": "Remove the black cat from the scene.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3148_Remove_the_black_cat_from_the_scene._20260119_193336_couple.mp4"
+    },
+    {
+        "id": 4,
+        "prompt": "Remove the bicycle from the scene.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3805_Remove_the_bicycle_from_the_scene._20260119_214206_couple.mp4"
+    },
+    {
+        "id": 5,
+        "prompt": "Remove the large brush from the artists hand.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id2335_Remove_the_large_brush_from_the_artists_hand._20260119_165456_couple.mp4"
+    },
+    {
+        "id": 6,
+        "prompt": "Remove the two deer from the scene, but keep the painter and the lake under a crisp autumn sky.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3791_Remove_the_two_deer_from_the_scene__but_keep_the_painter_and_the_lake__20260119_213900_couple.mp4"
+    },
+    {
+        "id": 7,
+        "prompt": "Remove the sunglasses from the woman.",
+        "video_file_path": "remove/v2v-A14B_11_832x480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4818_Remove_the_sunglasses_from_the_woman._20260120_010058_couple.mp4"
+    }
+]

@@ -1,0 +1,47 @@
+[
+    {
+        "id": 0,
+        "prompt": "Change the glowing red gemstone to a cold, crystalline blue orb that emits a faint, steady pulse of icy light, casting soft cyan ripples across the characters skin and blue outfit, while the yellow earring subtly shifts to a frost-tipped silver.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id345_Change_the_glowing_red_gemstone_to_a_cold__crystalline_blue_orb_that_e_20260119_110728_couple.mp4"
+    },
+    {
+        "id": 1,
+        "prompt": "Change the warm, low glow from the left side to a cool, blue moonlight coming from above and slightly behind, transforming the lighting from candlelike warmth to ethereal nocturnal radiance, and alter the womans hair from blonde to silver-white, enhancing its luminous quality under the new light while preserving all other movements, expressions, and camera motion.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id284_Change_the_warm__low_glow_from_the_left_side_to_a_cool__blue_moonlight_20260119_105459_couple.mp4"
+    },
+    {
+        "id": 2,
+        "prompt": "Change the womans brown jacket to a sleek, metallic silver trench coat that reflects the ambient greenish glow, enhancing its luminous ripple with each motion, and alter her expression from serious to one of startled awe—eyes widening slightly, mouth closed, as if witnessing something miraculous rather than threatening.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed15818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id350_Change_the_womans_brown_jacket_to_a_sleek__metallic_silver_trench_coa_20260119_110728_couple.mp4"
+    },
+    {
+        "id": 3,
+        "prompt": "Change the young mans light-colored shirt to a faded, weathered olive-green military vest with frayed seams and a single pinned medal, subtly tarnished, to imply a hidden past and emotional burden.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id310_Change_the_young_mans_light-colored_shirt_to_a_faded__weathered_olive_20260119_110113_couple.mp4"
+    },
+    {
+        "id": 4,
+        "prompt": "Change the womans black top to a flowing, ivory silk robe with gold-thread embroidery along the hem and shoulders, and replace the dim ambient light with soft dawn light filtering through a high arched window, casting long golden rays that illuminate the dust motes like sacred particles.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed9818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id360_Change_the_womans_black_top_to_a_flowing__ivory_silk_robe_with_gold-t_20260119_111032_couple.mp4"
+    },
+    {
+        "id": 5,
+        "prompt": "Change the womans red dress to a flowing white gown with faint gold embroidery that glows softly with internal light, and alter her expression from a smile of wonder to a serene, focused gaze ahead, as if communing with the landscape rather than reacting to it.",
+        "video_file_path": "portrait/v2v-A14B_11_832x480_unipc_seed9818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id392_Change_the_womans_red_dress_to_a_flowing_white_gown_with_faint_gold_e_20260119_111642_couple.mp4"
+    },
+    {
+        "id": 6,
+        "prompt": "Change the young womans white top to a dark navy-blue tactical vest with subtle reflective strips, and replace the flickering emergency light with a single, steady red emergency beacon mounted on the wall, casting a slow, rhythmic pulse of crimson light across her face and the room.",
+        "video_file_path": "portrait/v2v-A14B_11_832_480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1785_Change_the_young_womans_white_top_to_a_dark_navy-blue_tactical_vest_w_20260119_150904_couple.mp4"
+    },
+    {
+        "id": 7,
+        "prompt": "Change the warm, flickering ambient glow to a cold, pale moonlight streaming through the window, casting sharp silhouettes and a blue-tinged chill over the scene, altering the emotional tone from quiet sorrow to isolated melancholy.",
+        "video_file_path": "portrait/v2v-A14B_11_832_480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1091_Change_the_warm__flickering_ambient_glow_to_a_cold__pale_moonlight_str_20260119_125422_couple.mp4"
+    },
+    {
+        "id": 8,
+        "prompt": "Change the womans white veil to a deep crimson velvet cloak, and transform the golden embers drifting upward into slow-falling ash that settles on her shoulders and the floor, as if mourning her passage rather than honoring it.",
+        "video_file_path": "portrait/v2v-A14B_11_832_480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1683_Change_the_womans_white_veil_to_a_deep_crimson_velvet_cloak__and_tran_20260119_145015_couple.mp4"
+    }
+]

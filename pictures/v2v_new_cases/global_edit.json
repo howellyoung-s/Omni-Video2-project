@@ -1,0 +1,37 @@
+[
+    {
+        "id": 0,
+        "prompt": "Change the barbers straw hat to a polished silver fedora and replace the golden afternoon light with cool, overcast twilight, casting a soft blue-gray hue across the shop and dimming the dust motes to near-invisibility.",
+        "video_file_path": "global_edit/v2v-A14B_11_832x480_unipc_seed12818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id315_Change_the_barbers_straw_hat_to_a_polished_silver_fedora_and_replace__20260119_110113_couple.mp4"
+    },
+    {
+        "id": 1,
+        "prompt": "Change the time of day from twilight to early dawn, transforming the color palette from fading sunset hues to rising sunrise tones: molten orange deepens into fiery crimson, bleeding upward into tangerine, then pale peach, and finally a cool, crisp cerulean — with the same seamless, painterly waves. The atmospheric glimmers now rise as if stirred by the suns first breath, and the distant tree silhouettes subtly shift as if stretching awake, their leaves trembling not in sighs but in quiet anticipation.",
+        "video_file_path": "global_edit/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id335_Change_the_time_of_day_from_twilight_to_early_dawn__transforming_the_c_20260119_110422_couple.mp4"
+    },
+    {
+        "id": 2,
+        "prompt": "Change the warm, low glow from the left side to a cool, blue moonlight coming from above and slightly behind, transforming the lighting from candlelike warmth to ethereal nocturnal radiance, and alter the womans hair from blonde to silver-white, enhancing its luminous quality under the new light while preserving all other movements, expressions, and camera motion.",
+        "video_file_path": "global_edit/v2v-A14B_11_832x480_unipc_seed1818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id284_Change_the_warm__low_glow_from_the_left_side_to_a_cool__blue_moonlight_20260119_114500_couple.mp4"
+    },
+    {
+        "id": 3,
+        "prompt": "Change the hyenas fur color from sandy to a vibrant, neon-pink, and replace the blazing sunset with a cool, twilight purple and teal sky, subtly shifting the atmosphere from warm serenity to dreamy, otherworldly calm.",
+        "video_file_path": "global_edit/v2v-A14B_11_832x480_unipc_seed8818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1031_Change_the_hyenas__fur_color_from_sandy_to_a_vibrant__neon-pink__and_r_20260119_124144_couple.mp4"
+    },
+    {
+        "id": 5,
+        "prompt": "Change the womans dark blazer and white shirt to a sleek, charcoal-gray tactical suit with subtle reflective piping, and replace the glowing metallic structure behind her with an overgrown, vine-choked ancient stone archway covered in bioluminescent moss that pulses faintly in sync with her stride.",
+        "video_file_path": "global_edit/v2v-A14B_11_832_480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1602_Change_the_womans_dark_blazer_and_white_shirt_to_a_sleek__charcoal-gr_20260119_143437_couple.mp4"
+    },
+    {
+        "id": 6,
+        "prompt": "Change the womans red jacket to a long, tattered black trench coat, and replace the flickering neon signs with faint, glowing graffiti tags that pulse faintly in sync with distant, muffled bass.",
+        "video_file_path": "global_edit/v2v-A14B_11_832_480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1634_Change_the_womans_red_jacket_to_a_long__tattered_black_trench_coat__a_20260119_144054_couple.mp4"
+    },
+    {
+        "id": 7,
+        "prompt": "Change the mans dark jacket to a long, tattered overcoat made of aged leather, and replace the faint blue-tinged ambient glow with a dim, flickering amber emergency light casting long, wavering shadows across the walls.",
+        "video_file_path": "global_edit/v2v-A14B_11_832x480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1043_Change_the_mans_dark_jacket_to_a_long__tattered_overcoat_made_of_aged_20260119_124451_couple.mp4"
+    }
+]

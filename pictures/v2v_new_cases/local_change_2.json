@@ -1,0 +1,47 @@
+[
+    {
+        "id": 0,
+        "prompt": "Change the real raccoon to a stuffed raccoon.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id377_Change_the_real_raccoon_to_a_stuffed_raccoon._20260119_111337_couple.mp4"
+    },
+    {
+        "id": 1,
+        "prompt": "Change the firefighters pizza to a steaming cup of coffee, and remove the cheese stretch and bite motion—instead, he gently cradles the cup with both gloved hands, steam rising in thin spirals as he takes a slow sip, eyes closing briefly in quiet relief.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4842_Change_the_firefighters_pizza_to_a_steaming_cup_of_coffee__and_remove_20260120_010406_couple.mp4"
+    },
+    {
+        "id": 2,
+        "prompt": "Change the characters light brown fur to deep obsidian-black fur, and transform the golden motes rising from the collar into swirling, icy blue ethereal mist that freezes the air around their jawline, while the arcane runes beneath the fur glow faintly violet instead of golden.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id348_Change_the_characters_light_brown_fur_to_deep_obsidian-black_fur__and_20260119_110728_couple.mp4"
+    },
+    {
+        "id": 3,
+        "prompt": "Change the golden retriever to a black Labrador.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id364_Change_the_golden_retriever_to_a_black_Labrador._20260119_111032_couple.mp4"
+    },
+    {
+        "id": 4,
+        "prompt": "Change the man in the tailored suit to a woman in a bloodstained white lace gown, and alter her gesture from kneeling in submission to gripping the rug with both hands as if trying to pull herself forward, her expression shifting from terror to defiant resolve as she lifts her head, eyes blazing with quiet fury instead of fear.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1053_Change_the_man_in_the_tailored_suit_to_a_woman_in_a_bloodstained_white_20260119_124451_couple.mp4"
+    },
+    {
+        "id": 5,
+        "prompt": "Change the golden retriever to a sleek black Border Collie with white-tipped paws, and alter its behavior to move with focused precision—darting in sharp, angular bursts to intercept falling leaves rather than leaping wildly, its tail held low and stiff like a rudder, eyes locked forward with intense concentration.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1071_Change_the_golden_retriever_to_a_sleek_black_Border_Collie_with_white-_20260119_124756_couple.mp4"
+    },
+    {
+        "id": 6,
+        "prompt": "Change the mans crisp blue suit to a tailored charcoal-gray wool coat with a high collar, and replace the notebook with a vintage leather-bound sketchbook bound with brass clasps, its pages slightly curled from age and use.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id319_Change_the_mans_crisp_blue_suit_to_a_tailored_charcoal-gray_wool_coat_20260119_110113_couple.mp4"
+    },
+    {
+        "id": 7,
+        "prompt": "Change the real white rabbit to a stuffed white rabbit.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1062_Change_the_real_white_rabbit_to_a_stuffed_white_rabbit._20260119_124756_couple.mp4"
+    },
+    {
+        "id": 8,
+        "prompt": "Change the butterfly to a violet butterfly.",
+        "video_file_path": "local_change_2/v2v-A14B_11_832x480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id374_Change_the_butterfly_to_a_violet_butterfly._20260119_111337_couple.mp4"
+    }
+]

@@ -1,0 +1,1973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="description" content="Omni-Video 2: A flexible framework to bridge video understanding, generation and editing">
+  <meta name="keywords" content="Video Editing, Video Generation, AI, Deep Learning, Unified Framework">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omni-Video 2: A flexible framework to bridge video understanding, generation and editing</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./Text_to_video/fontawesome.all.min.css">
+  <script defer src="./Text_to_video/fontawesome.all.min.js"></script>
+
+  <style>
+    /* CSS Variables for Dark Theme */
+    :root {
+      --bg-primary: #0a0f1a;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.8);
+      --bg-card-hover: rgba(30, 41, 59, 0.9);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-primary: #f97316;
+      --accent-secondary: #fb923c;
+      --accent-gradient: linear-gradient(135deg, #c2410c 0%, #ea580c 25%, #f97316 50%, #fb923c 75%, #fdba74 100%);
+      --border-color: rgba(148, 163, 184, 0.1);
+      --glow-color: rgba(249, 115, 22, 0.3);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --transition-fast: 0.2s ease;
+      --transition-medium: 0.3s ease;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background Pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(ellipse at 20% 20%, rgba(249, 115, 22, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(251, 146, 60, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(17, 24, 39, 0.9) 0%, var(--bg-primary) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: var(--accent-primary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    a:hover {
+      color: var(--accent-secondary);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      min-height: 60vh;
+            display: flex;
+            align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 30% 30%, rgba(249, 115, 22, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 70% 70%, rgba(251, 146, 60, 0.1) 0%, transparent 40%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      0% { opacity: 0.5; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    /* Animated Title */
+    .title-main {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: var(--accent-gradient);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+      text-shadow: 0 0 60px var(--glow-color);
+      position: relative;
+    }
+
+    .title-main::after {
+      content: 'Omni-Video 2';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--accent-gradient);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite;
+      filter: blur(30px);
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .title-sub {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Authors */
+    .authors {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    .authors a {
+      color: var(--text-primary);
+      transition: color var(--transition-fast);
+    }
+
+    .authors a:hover {
+      color: var(--accent-primary);
+    }
+
+    .affiliations {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Link Buttons */
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      transition: all var(--transition-medium);
+      backdrop-filter: blur(10px);
+    }
+
+    .link-btn:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(249, 115, 22, 0.3);
+    }
+
+    .link-btn i {
+      font-size: 1.1rem;
+    }
+
+    /* ==================== SECTIONS ==================== */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: var(--accent-gradient);
+      margin: 1rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ==================== INTRO SECTION ==================== */
+    .intro-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .intro-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    .intro-text {
+      font-size: 1.05rem;
+    }
+
+    .intro-highlights {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+    }
+
+    .intro-highlights li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .intro-highlights li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--text-secondary);
+    }
+
+    .intro-highlights strong {
+      color: var(--text-primary);
+    }
+
+    .framework-image {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-medium);
+    }
+
+    .framework-image:hover {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.1);
+    }
+
+    .framework-image img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .framework-image figcaption {
+      text-align: center;
+      margin-top: 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ==================== TABS NAVIGATION ==================== */
+    .tabs-container {
+      margin-top: 3rem;
+    }
+
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+      padding: 0.5rem;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all var(--transition-medium);
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(249, 115, 22, 0.1);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      margin-left: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 11px;
+    }
+
+    .tab-btn.active .tab-count {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .tabs-hint {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      margin-top: -1rem;
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==================== VIDEO GRID ==================== */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(550px, 1fr));
+      gap: 2.5rem;
+    }
+
+    /* Video Card */
+    .video-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-medium);
+    }
+
+    .video-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(249, 115, 22, 0.1);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1664 / 480;
+      background: #000;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Loading Indicator */
+    .video-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      z-index: 5;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      backdrop-filter: blur(4px);
+    }
+
+    .video-loading.hidden {
+      display: none;
+    }
+
+    .loading-spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-top-color: var(--accent-primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Muted indicator */
+    .muted-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--text-secondary);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Source/Edited Labels */
+    .video-labels {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .video-label {
+      flex: 1;
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, transparent 100%);
+    }
+
+    .video-label.source {
+      color: #94a3b8;
+    }
+
+    .video-label.edited {
+      color: var(--accent-secondary);
+    }
+
+    /* Video Caption */
+    .video-caption {
+      padding: 1.25rem;
+      background: linear-gradient(180deg, var(--bg-card) 0%, rgba(17, 24, 39, 0.95) 100%);
+    }
+
+    .video-prompt {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .video-prompt::before {
+      content: '"';
+      color: var(--accent-primary);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .video-prompt::after {
+      content: '"';
+      color: var(--accent-primary);
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    /* ==================== FOOTER ==================== */
+    .footer {
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+      .intro-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+        min-height: 50vh;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .tabs-nav {
+        gap: 0.25rem;
+        padding: 0.25rem;
+      }
+
+      .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+
+      .video-grid {
+        gap: 1.5rem;
+      }
+
+      .link-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .link-btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .video-wrapper {
+        aspect-ratio: auto;
+      }
+      
+      .video-wrapper video {
+        aspect-ratio: 1664 / 480;
+      }
+    }
+
+    /* ==================== ADVANCED EDITING SECTION ==================== */
+    .advanced-editing {
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+    }
+
+    .advanced-intro {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    .advanced-subsection {
+      margin-bottom: 5rem;
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .advanced-subsection:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+    }
+
+    .subsection-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .subsection-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .subsection-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.5em;
+      background: var(--accent-gradient);
+      border-radius: 2px;
+    }
+
+    .subsection-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--accent-gradient);
+      color: white;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+    }
+
+    .subsection-desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Large Video Grid for Advanced Section */
+    .video-grid-large {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(650px, 1fr));
+      gap: 3rem;
+    }
+
+    .video-card-large {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all var(--transition-medium);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .video-card-large:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-8px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(249, 115, 22, 0.15);
+    }
+
+    .video-card-large .video-wrapper {
+      aspect-ratio: 1664 / 480;
+    }
+
+    .video-card-large .video-caption {
+      padding: 1.5rem 2rem;
+    }
+
+    .video-card-large .video-prompt {
+      font-size: 1.05rem;
+      -webkit-line-clamp: 4;
+    }
+
+    /* Full prompt display for Complex Edit */
+    .video-prompt-full {
+      display: block;
+      -webkit-line-clamp: unset;
+      -webkit-box-orient: unset;
+      overflow: visible;
+    }
+
+    @media (max-width: 768px) {
+      .video-grid-large {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .advanced-subsection {
+        margin-bottom: 3rem;
+        padding: 2rem 0;
+      }
+    }
+
+    /* ==================== BASIC EDITING SECTION ==================== */
+    .basic-editing {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero">
+  <div class="hero-content">
+    <h1 class="title-main">Omni-Video 2</h1>
+    <p class="title-sub">A flexible framework to bridge video understanding, generation and editing</p>
+    
+    <div class="authors">
+      <a href="">Hao Yang</a><sup>1</sup>, 
+      <a href="">Zhiyu Tan</a><sup>1,2</sup>, 
+      <a href="">Jia Gong</a><sup>1</sup>, 
+      <a href="">Luozheng Qin</a><sup>1</sup>, 
+      <a href="">Hesen Chen</a><sup>1</sup>, 
+      <a href="">Xiaomeng Yang</a><sup>1</sup>, 
+      <a href="">Mengping Yang</a><sup>1*</sup>, 
+      <a href="">Hao Li</a><sup>1,2*</sup>
+    </div>
+
+    <div class="affiliations">
+      <sup>1</sup>Shanghai Academy of Artificial Intelligence for Science &nbsp;|&nbsp; <sup>2</sup>Fudan University
+      <br><small><sup>*</sup>Corresponding Author</small>
+    </div>
+        
+    <div class="link-buttons">
+      <a href="https://github.com/SAIS-FUXI/Omni-Video" class="link-btn">
+        <i class="fab fa-github"></i>
+        <span>Code</span>
+      </a>
+      <a href="#" class="link-btn">
+        <i class="fas fa-robot"></i>
+        <span>HuggingFace</span>
+      </a>
+      <a href="#" class="link-btn">
+        <i class="fas fa-file-alt"></i>
+        <span>arXiv</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== INTRODUCTION SECTION ==================== -->
+<section class="section intro-section">
+  <div class="container">
+    <h2 class="section-title">Introduction</h2>
+    
+    <div class="intro-content">
+      <div class="intro-text">
+        <p>We present a unified video editing and generation framework that pairs a text-to-video DiT backbone with vision-language understanding for precise, controllable edits. A VLM reads the source video and edit instruction to predict a detailed caption of the expected edited result, converting sparse prompts into explicit semantics about content, attributes, and temporal changes. The DiT model then uses mixed cross-attention conditioning, injecting source VAE latents (optionally concatenated with other cues) together with the expanded text semantics, to preserve identity, layout, and motion while enabling flexible control. This yields a single pipeline that supports text-to-video, video-to-video editing, and mixed-condition generation.</p>
+        
+        <ul class="intro-highlights">
+          <li><strong>Target-caption prediction (VLM):</strong> dense "after-edit" semantics from video + edit prompt.</li>
+          <li><strong>Mixed cross-attention conditioning:</strong> fuse VAE latent anchors and multimodal cues with text for faithful, controllable results.</li>
+        </ul>
+      </div>
+      
+      <figure class="framework-image">
+        <img src="pictures/framework.png" alt="Omni-Video 2 Framework">
+        <figcaption><strong>Figure 1.</strong> Framework of Omni-Video 2</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ADVANCED EDITING SECTION ==================== -->
+<section class="section advanced-editing" id="advanced-editing">
+  <div class="container">
+    <h2 class="section-title">Advanced Video Editing</h2>
+    <p class="advanced-intro">
+      Showcasing our model's ability to handle complex editing scenarios with high motion, intricate local changes, and multi-element transformations while preserving temporal coherence.
+    </p>
+
+    <!-- Complex Edit Subsection -->
+    <div class="advanced-subsection" id="complex-edit">
+      <div class="subsection-header">
+        <h3 class="subsection-title">Complex Edit <span class="subsection-badge">6 videos</span></h3>
+        <p class="subsection-desc">Multi-element transformations combining appearance, lighting, and environmental changes</p>
+      </div>
+      <div class="video-grid-large">
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832x480_unipc_seed5818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1028_Change_the_mans_black_jacket_to_a_long__tattered_gray_overcoat_with_f_20260119_124144_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the mans black jacket to a long, tattered gray overcoat with frayed edges and a high collar, and replace the green wall with a peeling, faded blue wallpaper covered in faded, handwritten notes and faded red symbols.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832x480_unipc_seed1818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id294_Change_the_mans_black_jacket_to_a_long__tattered_gray_coat_lined_with_20260119_122055_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the mans black jacket to a long, tattered gray coat lined with faintly glowing thread, and replace the cold blue light pulse with a sudden burst of warm amber light that illuminates floating golden dust and glowing geometric symbols instead of ash and sigils.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832x480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id339_Change_the_womans_black_workout_attire_to_a_vibrant_crimson_sports_br_20260119_110728_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the womans black workout attire to a vibrant crimson sports bra and matching high-waisted leggings, and replace the white towel with a long, flowing silk scarf in the same crimson hue that billows dramatically with each motion.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id394_Change_the_red_fox_to_a_small__silver-furred_Arctic_fox_with_a_frost-t_20260119_111642_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the red fox to a small, silver-furred Arctic fox with a frost-tipped tail, and replace the sun-dappled forest with a quiet, snow-laden boreal woodland at twilight, where the golden light becomes a cool blue moonlight and the firefly-like motes become glowing ice crystals that shimmer and drift in slow, silent spirals.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832x480_unipc_seed6818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id357_Change_the_womans_flowing_black_coat_to_a_tailored__knee-length_camel_20260119_111032_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the womans flowing black coat to a tailored, knee-length camel wool trench coat with a crisp white collar, and replace the autumn leaves and loose papers swirling around their ankles with falling cherry blossom petals drifting lazily in the breeze.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/complex_edit/v2v-A14B_11_832_480_unipc_seed6818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1605_Change_the_mans_orange_prison_jumpsuit_to_a_tattered_gray_hospital_go_20260119_143437_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt video-prompt-full">Change the mans orange prison jumpsuit to a tattered gray hospital gown, and replace the flickering greenish fluorescent bulb with a single, flickering red emergency light that casts a blood-red glow across the corridor, making the shadows appear as if stained with dried blood.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- High Motion Subsection -->
+    <div class="advanced-subsection" id="high-motion">
+      <div class="subsection-header">
+        <h3 class="subsection-title">High Motion <span class="subsection-badge">6 videos</span></h3>
+        <p class="subsection-desc">Challenging edits on fast-moving subjects with dynamic clothing and dramatic motion</p>
+      </div>
+      <div class="video-grid-large">
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832x480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1026_Change_the_womans_green_jacket_to_a_deep_crimson_cloak_that_billows_d_20260119_124144_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the womans green jacket to a deep crimson cloak that billows dramatically with each step.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832x480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id258_Change_the_characters_armored_suit_from_red-and-black_to_matte_charco_20260119_105137_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the characters armored suit from red-and-black to matte charcoal gray with glowing cyan circuitry accents.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832x480_unipc_seed8818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id311_Change_the_womans_white_shirt_to_a_blood-red_silk_blouse_that_clings__20260119_110113_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the womans white shirt to a blood-red silk blouse that clings to her form.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832_480_unipc_seed1818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1184_Change_the_womans_pink_shirt_to_a_deep_crimson_robe_with_gold_embroid_20260119_131341_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the womans pink shirt to a deep crimson robe with gold embroidery.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832_480_unipc_seed8818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1591_Change_the_mans_sharp_dark_suit_and_tie_to_a_weathered__oil-stained_m_20260119_143130_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the mans sharp dark suit and tie to a weathered, oil-stained mechanics jumpsuit.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/high_motion/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id349_Change_the_womans_black_top_to_a_flowing__blood-red_silk_gown_that_cl_20260119_110728_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the womans black top to a flowing, blood-red silk gown that clings and billows with her motion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diverse Local Edit Subsection -->
+    <div class="advanced-subsection" id="diverse-local-edit">
+      <div class="subsection-header">
+        <h3 class="subsection-title">Diverse Local Edit <span class="subsection-badge">8 videos</span></h3>
+        <p class="subsection-desc">Precise object-level modifications while preserving surrounding context and motion</p>
+      </div>
+      <div class="video-grid-large">
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id377_Change_the_real_raccoon_to_a_stuffed_raccoon._20260119_111337_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the real raccoon to a stuffed raccoon.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4842_Change_the_firefighters_pizza_to_a_steaming_cup_of_coffee__and_remove_20260120_010406_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the firefighters pizza to a steaming cup of coffee.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id348_Change_the_characters_light_brown_fur_to_deep_obsidian-black_fur__and_20260119_110728_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the characters light brown fur to deep obsidian-black fur with swirling icy blue ethereal mist.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id364_Change_the_golden_retriever_to_a_black_Labrador._20260119_111032_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the golden retriever to a black Labrador.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1053_Change_the_man_in_the_tailored_suit_to_a_woman_in_a_bloodstained_white_20260119_124451_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the man in the tailored suit to a woman in a bloodstained white lace gown.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1071_Change_the_golden_retriever_to_a_sleek_black_Border_Collie_with_white-_20260119_124756_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the golden retriever to a sleek black Border Collie with white-tipped paws.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id319_Change_the_mans_crisp_blue_suit_to_a_tailored_charcoal-gray_wool_coat_20260119_110113_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the mans crisp blue suit to a tailored charcoal-gray wool coat with a high collar.</p>
+          </div>
+        </div>
+
+        <div class="video-card-large">
+          <div class="video-wrapper">
+            <div class="video-labels">
+              <span class="video-label source">Source</span>
+              <span class="video-label edited">Edited</span>
+            </div>
+            <video muted loop playsinline preload="auto">
+              <source src="./pictures/v2v_new_cases/local_change_2/v2v-A14B_11_832x480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id374_Change_the_butterfly_to_a_violet_butterfly._20260119_111337_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="video-caption">
+            <p class="video-prompt">Change the butterfly to a violet butterfly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BASIC EDITING SECTION ==================== -->
+<section class="section basic-editing" id="basic-editing">
+  <div class="container">
+    <h2 class="section-title">Basic Video Editing</h2>
+    
+    <div class="tabs-container">
+      <!-- Tabs Navigation -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="add">Add <span class="tab-count">9</span></button>
+        <button class="tab-btn" data-tab="remove">Remove <span class="tab-count">8</span></button>
+        <button class="tab-btn" data-tab="local">Local Change <span class="tab-count">7</span></button>
+        <button class="tab-btn" data-tab="global">Global Edit <span class="tab-count">6</span></button>
+        <button class="tab-btn" data-tab="portrait">Portrait <span class="tab-count">8</span></button>
+      </div>
+      <p class="tabs-hint">Videos autoplay when visible (muted). Left side: source video | Right side: edited result. Click video for sound controls.</p>
+
+      <!-- Tab: Add -->
+      <div class="tab-content active" id="tab-add">
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1626_Add_a_scarf_around_the_first_foxs_neck._20260119_143747_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a scarf around the first foxs neck.</p>
+    </div>
+  </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3594_Add_a_tiny_pirate_hat_on_the_parrots_head._20260119_210138_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a tiny pirate hat on the parrots head.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3738_Add_a_red_headband_to_the_players_forehead._20260119_212941_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a red headband to the players forehead.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4924_Add_a_tiny_crown_to_the_hummingbirds_head._20260120_011933_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a tiny crown to the hummingbirds head.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id2957_Add_glowing_neon_stripes_to_the_motorcycle_20260119_185616_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add glowing neon stripes to the motorcycle</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4109_Add_a_bow_tie_around_the_rabbits_neck._20260119_224107_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a bow tie around the rabbits neck.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed15818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1854_Add_a_straw_hat_on_the_first_ducks_head._20260119_152139_couple.mp4" type="video/mp4">
+            </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add a straw hat on the first ducks head.</p>
+  </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4047_Add_pink_gloves_to_the_bikers._20260119_222833_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add pink gloves to the bikers.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/add/v2v-A14B_11_832x480_unipc_seed5818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id276_Add_safety_goggles_to_the_scientist._20260119_105459_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Add safety goggles to the scientist.</p>
+            </div>
+          </div>
+          </div>
+        </div>
+
+      <!-- Tab: Remove -->
+      <div class="tab-content" id="tab-remove">
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3833_Remove_the_meditation_cushion_from_the_scene._20260119_214817_couple.mp4" type="video/mp4">
+            </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the meditation cushion from the scene.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed11818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3530_Remove_the_two_cubs_from_the_scene._20260119_204859_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the two cubs from the scene.</p>
+  </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed12818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id5323_Remove_the_two_lizards_from_the_scene__but_keep_the_runner_and_the_des_20260120_024433_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the two lizards from the scene, but keep the runner and the desert dune under a blazing noon sun.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3148_Remove_the_black_cat_from_the_scene._20260119_193336_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the black cat from the scene.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed14818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3805_Remove_the_bicycle_from_the_scene._20260119_214206_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the bicycle from the scene.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id2335_Remove_the_large_brush_from_the_artists_hand._20260119_165456_couple.mp4" type="video/mp4">
+            </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the large brush from the artists hand.</p>
+  </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id3791_Remove_the_two_deer_from_the_scene__but_keep_the_painter_and_the_lake__20260119_213900_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the two deer from the scene, but keep the painter and the lake under a crisp autumn sky.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/remove/v2v-A14B_11_832x480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id4818_Remove_the_sunglasses_from_the_woman._20260120_010058_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Remove the sunglasses from the woman.</p>
+            </div>
+          </div>
+          </div>
+        </div>
+
+      <!-- Tab: Local Change -->
+      <div class="tab-content" id="tab-local">
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832x480_unipc_seed1818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id279_Change_the_fox_into_a_badger._20260119_112028_couple.mp4" type="video/mp4">
+              </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the fox into a badger.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832x480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id403_Change_the_cat_to_white._20260119_111948_couple.mp4" type="video/mp4">
+              </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the cat to white.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832_480_unipc_seed12818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1819_Change_the_color_of_the_dress_to_gold._20260119_151520_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the color of the dress to gold.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832_480_unipc_seed15818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1758_Change_the_color_of_the_boat_from_purple_to_orange._20260119_150242_couple.mp4" type="video/mp4">
+            </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the color of the boat from purple to orange.</p>
+  </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832_480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1590_Replace_the_blue_cargo_ship_with_a_green_ferry._20260119_143130_couple.mp4" type="video/mp4">
+            </video>
+              </div>
+            <div class="video-caption">
+              <p class="video-prompt">Replace the blue cargo ship with a green ferry.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832_480_unipc_seed2818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1665_Replace_the_human_photographer_with_a_robotic_photographer_20260119_144706_couple.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-caption">
+              <p class="video-prompt">Replace the human photographer with a robotic photographer.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/local_change_1/v2v-A14B_11_832_480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1635_Change_the_womans_white_kimono_to_a_deep_indigo_silk_kimono_with_fain_20260119_144054_couple.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans white kimono to a deep indigo silk kimono with faint silver thread embroidery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Global Edit -->
+      <div class="tab-content" id="tab-global">
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832x480_unipc_seed12818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id315_Change_the_barbers_straw_hat_to_a_polished_silver_fedora_and_replace__20260119_110113_couple.mp4" type="video/mp4">
+            </video>
+              </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the barbers straw hat to a polished silver fedora and replace the golden afternoon light with cool, overcast twilight.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832x480_unipc_seed16818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id335_Change_the_time_of_day_from_twilight_to_early_dawn__transforming_the_c_20260119_110422_couple.mp4" type="video/mp4">
+            </video>
+              </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the time of day from twilight to early dawn, transforming the color palette from fading sunset hues to rising sunrise tones.</p>
+            </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832x480_unipc_seed1818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id284_Change_the_warm__low_glow_from_the_left_side_to_a_cool__blue_moonlight_20260119_114500_couple.mp4" type="video/mp4">
+            </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the warm, low glow from the left side to a cool, blue moonlight coming from above and slightly behind.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832x480_unipc_seed8818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1031_Change_the_hyenas__fur_color_from_sandy_to_a_vibrant__neon-pink__and_r_20260119_124144_couple.mp4" type="video/mp4">
+            </video>
+              </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the hyenas' fur color from sandy to a vibrant, neon-pink, and replace the blazing sunset with a cool, twilight purple and teal sky.</p>
+            </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832_480_unipc_seed3818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1602_Change_the_womans_dark_blazer_and_white_shirt_to_a_sleek__charcoal-gr_20260119_143437_couple.mp4" type="video/mp4">
+            </video>
+              </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans dark blazer and white shirt to a sleek, charcoal-gray tactical suit.</p>
+            </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+          </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/global_edit/v2v-A14B_11_832x480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1043_Change_the_mans_dark_jacket_to_a_long__tattered_overcoat_made_of_aged_20260119_124451_couple.mp4" type="video/mp4">
+            </video>
+          </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the mans dark jacket to a long, tattered overcoat made of aged leather.</p>
+          </div>
+        </div>
+
+        </div>
+      </div>
+
+      <!-- Tab: Portrait -->
+      <div class="tab-content" id="tab-portrait">
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+            </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id345_Change_the_glowing_red_gemstone_to_a_cold__crystalline_blue_orb_that_e_20260119_110728_couple.mp4" type="video/mp4">
+              </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the glowing red gemstone to a cold, crystalline blue orb that emits a faint, steady pulse of icy light.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed13818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id284_Change_the_warm__low_glow_from_the_left_side_to_a_cool__blue_moonlight_20260119_105459_couple.mp4" type="video/mp4">
+              </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the warm, low glow from the left side to a cool, blue moonlight coming from above.</p>
+  </div>
+          </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+              </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed15818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id350_Change_the_womans_brown_jacket_to_a_sleek__metallic_silver_trench_coa_20260119_110728_couple.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans brown jacket to a sleek, metallic silver trench coat.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed7818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id310_Change_the_young_mans_light-colored_shirt_to_a_faded__weathered_olive_20260119_110113_couple.mp4" type="video/mp4">
+              </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the young mans light-colored shirt to a faded, weathered olive-green military vest.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed9818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id360_Change_the_womans_black_top_to_a_flowing__ivory_silk_robe_with_gold-t_20260119_111032_couple.mp4" type="video/mp4">
+              </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans black top to a flowing, ivory silk robe with gold-thread embroidery.</p>
+  </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832x480_unipc_seed9818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id392_Change_the_womans_red_dress_to_a_flowing_white_gown_with_faint_gold_e_20260119_111642_couple.mp4" type="video/mp4">
+              </video>
+    </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans red dress to a flowing white gown with faint gold embroidery.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832_480_unipc_seed10818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1785_Change_the_young_womans_white_top_to_a_dark_navy-blue_tactical_vest_w_20260119_150904_couple.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the young womans white top to a dark navy-blue tactical vest with subtle reflective strips.</p>
+          </div>
+        </div>
+
+          <div class="video-card">
+            <div class="video-wrapper">
+              <div class="video-labels">
+                <span class="video-label source">Source</span>
+                <span class="video-label edited">Edited</span>
+      </div>
+              <video muted loop playsinline preload="auto">
+                <source src="./pictures/v2v_new_cases/portrait/v2v-A14B_11_832_480_unipc_seed4818_uncond0_ar_cfg3.0_samples40_shift5.0_frame_num41_id1683_Change_the_womans_white_veil_to_a_deep_crimson_velvet_cloak__and_tran_20260119_145015_couple.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-caption">
+              <p class="video-prompt">Change the womans white veil to a deep crimson velvet cloak.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="container">
+    <p>Omni-Video 2 &copy; 2026 | Shanghai Academy of Artificial Intelligence for Science & Fudan University</p>
+  </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    // Initialize video with loading indicator and event handlers
+    function initializeVideo(wrapper) {
+      const video = wrapper.querySelector('video');
+      if (!video || video.dataset.initialized) return;
+
+      const source = video.querySelector('source');
+      const videoSrc = video.dataset.src || (source ? source.getAttribute('src') : null);
+      
+      if (!videoSrc) return;
+
+      if (!video.dataset.src) {
+        video.dataset.src = videoSrc;
+      }
+
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.controls = true;
+      video.preload = 'auto';
+      video.src = videoSrc;
+      video.dataset.initialized = 'true';
+
+      if (!wrapper.querySelector('.video-loading')) {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'video-loading';
+        loadingDiv.innerHTML = '<div class="loading-spinner"></div><span>Loading...</span>';
+        wrapper.appendChild(loadingDiv);
+      }
+
+      video.addEventListener('loadeddata', function() {
+        const loading = wrapper.querySelector('.video-loading');
+        if (loading) loading.classList.add('hidden');
+      });
+
+      video.addEventListener('canplaythrough', function() {
+        const loading = wrapper.querySelector('.video-loading');
+        if (loading) loading.classList.add('hidden');
+        video.play().catch(e => console.log('Autoplay prevented:', e));
+      });
+
+      video.addEventListener('playing', function() {
+        const loading = wrapper.querySelector('.video-loading');
+        if (loading) loading.classList.add('hidden');
+      });
+
+      video.addEventListener('error', function(e) {
+        const loading = wrapper.querySelector('.video-loading');
+        if (loading) {
+          loading.innerHTML = '<span style="color: #ef4444;">Video unavailable</span>';
+        }
+        console.error('Video error:', videoSrc, e);
+      });
+
+      video.load();
+    }
+
+    // Initialize videos in a container
+    function initializeVideosInContainer(container) {
+      container.querySelectorAll('.video-wrapper').forEach(wrapper => {
+        initializeVideo(wrapper);
+      });
+    }
+
+    // Initialize videos in active tab for autoplay
+    function initializeVideosInActiveTab() {
+      const activeTab = document.querySelector('.tab-content.active');
+      if (activeTab) {
+        initializeVideosInContainer(activeTab);
+      }
+    }
+
+    // Viewport observer for auto-play/pause
+    function createViewportObserver() {
+      return new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            if (video.paused && video.readyState >= 2) {
+              video.play().catch(() => {});
+            }
+          } else {
+            if (!video.paused) {
+              video.pause();
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+    }
+
+    let videoObserver = createViewportObserver();
+
+    // Observe videos in a container
+    function observeVideos(container) {
+      container.querySelectorAll('video').forEach(video => {
+        if (!video.dataset.observing) {
+          videoObserver.observe(video);
+          video.dataset.observing = 'true';
+        }
+      });
+    }
+
+    // Tab Navigation
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetTab = button.getAttribute('data-tab');
+
+        // Pause videos in basic editing section only
+        document.querySelectorAll('.basic-editing video').forEach(video => {
+          video.pause();
+        });
+
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        button.classList.add('active');
+        const targetContent = document.getElementById('tab-' + targetTab);
+        targetContent.classList.add('active');
+
+        setTimeout(() => {
+          initializeVideosInActiveTab();
+          observeVideos(targetContent);
+          observeCards(targetContent);
+        }, 100);
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    function observeCards(container) {
+      const selector = container ? 
+        (container.classList.contains('video-card') || container.classList.contains('video-card-large') ? 
+          [container] : container.querySelectorAll('.video-card, .video-card-large')) :
+        document.querySelectorAll('.video-card, .video-card-large');
+      
+      const cards = Array.from(selector);
+      cards.forEach(card => {
+        if (!card.dataset.observed) {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+          cardObserver.observe(card);
+          card.dataset.observed = 'true';
+        }
+      });
+    }
+
+    // Initialize Advanced Editing section videos
+    function initializeAdvancedSection() {
+      const advancedSection = document.querySelector('.advanced-editing');
+      if (advancedSection) {
+        initializeVideosInContainer(advancedSection);
+        observeVideos(advancedSection);
+        observeCards(advancedSection);
+      }
+    }
+
+    // Initialize on page load
+    initializeAdvancedSection();
+    initializeVideosInActiveTab();
+    observeVideos(document.querySelector('.tab-content.active') || document);
+    observeCards();
+  });
+</script>
+
+</body>
+</html>
