@@ -765,6 +765,96 @@
       background: var(--bg-secondary);
       border-top: 1px solid var(--border-color);
     }
+
+    /* ==================== COMPARISON TABLE ==================== */
+    .comparison-section {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .comparison-table-wrapper {
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .comparison-table thead {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.15) 100%);
+    }
+
+    .comparison-table th {
+      padding: 1rem 1.25rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .comparison-table th:first-child {
+      text-align: left;
+    }
+
+    .comparison-table td {
+      padding: 0.875rem 1.25rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .comparison-table td:first-child {
+      text-align: left;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .comparison-table tbody tr:hover {
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .comparison-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table .highlight-row {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+    }
+
+    .comparison-table .highlight-row td {
+      color: var(--accent-primary);
+      font-weight: 600;
+    }
+
+    .comparison-table .highlight-row td:first-child {
+      color: var(--accent-primary);
+    }
+
+    .comparison-table .best-value {
+      color: var(--accent-primary);
+      font-weight: 700;
+    }
+
+    .table-caption {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .table-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -1782,6 +1872,90 @@
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ==================== COMPARISON TABLE SECTION ==================== -->
+<section class="section comparison-section" id="comparison">
+  <div class="container">
+    <h2 class="section-title">Performance Comparison</h2>
+    <p style="text-align: center; color: var(--text-secondary); margin-bottom: 1rem;">
+      Comparison of diffusion- and flow-based video editing methods on the FiVE benchmark using FiVE-Acc metrics.
+    </p>
+    
+    <div class="comparison-table-wrapper">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>FiVE-YN</th>
+            <th>FiVE-MC</th>
+            <th>FiVE-∪</th>
+            <th>FiVE-∩</th>
+            <th>FiVE-Acc ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TokenFlow</td>
+            <td>19.36</td>
+            <td>35.51</td>
+            <td>36.68</td>
+            <td>18.18</td>
+            <td>27.43</td>
+          </tr>
+          <tr>
+            <td>DMT*</td>
+            <td>34.78</td>
+            <td>62.06</td>
+            <td>62.98</td>
+            <td>33.86</td>
+            <td>48.42</td>
+          </tr>
+          <tr>
+            <td>VidToMe</td>
+            <td>20.03</td>
+            <td>33.50</td>
+            <td>36.20</td>
+            <td>17.34</td>
+            <td>26.77</td>
+          </tr>
+          <tr>
+            <td>AnyV2V</td>
+            <td>30.62</td>
+            <td>45.42</td>
+            <td>48.96</td>
+            <td>27.09</td>
+            <td>38.02</td>
+          </tr>
+          <tr>
+            <td>VideoGrain†</td>
+            <td>30.50</td>
+            <td>43.97</td>
+            <td>44.30</td>
+            <td>30.17</td>
+            <td>37.23</td>
+          </tr>
+          <tr>
+            <td>Wan-Edit</td>
+            <td>41.41</td>
+            <td>52.53</td>
+            <td>55.72</td>
+            <td>38.22</td>
+            <td>46.97</td>
+          </tr>
+          <tr class="highlight-row">
+            <td>Omni-Video-2 (Ours)</td>
+            <td class="best-value">63.77</td>
+            <td class="best-value">83.30</td>
+            <td class="best-value">85.99</td>
+            <td class="best-value">61.08</td>
+            <td class="best-value">73.53</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-caption"><strong>Table 1.</strong> Quantitative comparison on FiVE benchmark.</p>
   </div>
 </section>
 
